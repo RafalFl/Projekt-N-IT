@@ -1,5 +1,9 @@
 import sys
 import os
+import json
+import yaml
+import xmltodict
+
 
 def parse_arguments():
     if len(sys.argv) != 3:
@@ -21,6 +25,38 @@ def parse_arguments():
         sys.exit(1)
     
     return input_file, output_file, input_format, output_format
+
+
+def read_json(file_path):
+    with open(file_path, 'r') as file:
+        try:
+            data = json.load(file)
+        except json.JSONDecodeError as e:
+            print(f"Bład przy wczytywaniu pliku JSON: {e}")
+            sys.exit(1)
+    return data
+
+
+def read_yaml(file_path):
+    with open(file_path, 'r') as file:
+        try:
+            data = yaml.safe_load(file)
+        except yaml.YAMLError as e:
+            print(f"Bład przy wczytywaniu pliku YAML: {e}")
+            sys.exit(1)
+    return data
+
+
+def read_xml(file_path):
+    with open(file_path, 'r') as file:
+        try:
+            data = xmltodict.parse(file.read())
+        except Exception as e:
+            print(f"Bład przy wczytywaniu pliku XML: {e}")
+            sys.exit(1)
+    return data
+
+
 
 if __name__ == __main__:
     input_file, output_file, input_format, output_format = parse_arguments()
