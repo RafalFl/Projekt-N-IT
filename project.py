@@ -37,6 +37,11 @@ def read_json(file_path):
     return data
 
 
+def write_json(data, file_path):
+    with open(file_path, 'w') as file:
+        json.dump(data, file, indent=4
+
+
 def read_yaml(file_path):
     with open(file_path, 'r') as file:
         try:
@@ -47,6 +52,11 @@ def read_yaml(file_path):
     return data
 
 
+def write_yaml(data, file_path):
+    with open(file_path, 'w') as file:
+        yaml.dump(data, file)
+
+
 def read_xml(file_path):
     with open(file_path, 'r') as file:
         try:
@@ -55,3 +65,26 @@ def read_xml(file_path):
             print(f"Błąd podczas odczytu pliku XML: {e}")
             sys.exit(1)
     return data
+
+
+def write_xml(data, file_path):
+    with open(file_path, 'w') as file:
+        file.write(xmltodict.unparse(data, pretty=True))
+
+
+if __name__ == "__main__":
+    input_file, output_file, input_format, output_format = parse_arguments()
+
+    if input_format == '.json':
+        data = read_json(input_file)
+    elif input_format in ['.yml', '.yaml']:
+        data = read_yaml(input_file)
+    elif input_format == '.xml':
+        data = read_xml(input_file)
+
+    if output_format == '.json':
+        write_json(data, output_file)
+    elif output_format in ['.yml', '.yaml']:
+        write_yaml(data, output_file)
+    elif output_format == '.xml':
+        write_xml(data, output_file)
