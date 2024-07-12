@@ -32,7 +32,7 @@ def read_json(file_path):
         try:
             data = json.load(file)
         except json.JSONDecodeError as e:
-            print(f"Bład przy wczytywaniu pliku JSON: {e}")
+            print(f"Błąd podczas odczytu pliku JSON: {e}")
             sys.exit(1)
     return data
 
@@ -42,7 +42,7 @@ def read_yaml(file_path):
         try:
             data = yaml.safe_load(file)
         except yaml.YAMLError as e:
-            print(f"Bład przy wczytywaniu pliku YAML: {e}")
+            print(f"Błąd podczas odczytu pliku YAML: {e}")
             sys.exit(1)
     return data
 
@@ -52,12 +52,6 @@ def read_xml(file_path):
         try:
             data = xmltodict.parse(file.read())
         except Exception as e:
-            print(f"Bład przy wczytywaniu pliku XML: {e}")
+            print(f"Błąd podczas odczytu pliku XML: {e}")
             sys.exit(1)
     return data
-
-
-
-if __name__ == __main__:
-    input_file, output_file, input_format, output_format = parse_arguments()
-    print(fConvertowanie {input_file} z {input_format} do {output_file} w {output_format}) 
